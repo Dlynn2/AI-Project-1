@@ -1,24 +1,24 @@
-//import java.io.File;
-//import java.io.IOException;
-//import java.*;
-//import java.util.ArrayList;
-//
-//public class Main {
-//    public static void main(String args[]) throws IOException {
-//        File maze1 = new File("C:\\Users\\Mitch\\Documents\\Computer Science\\Artifical Intelligence\\Programs\\Project1\\test.txt");
-//        Maze maze=new Maze(maze1);
-//        System.out.println(maze.getHeight());
-//        System.out.println(maze.getWidth());
-//        maze.printMaze();
-//        System.out.println(maze.isWall(19,8));
-//        System.out.println(maze.isValidLocation(0,0));
-//        System.out.println(maze.getEntry().getX() +" "+maze.getEntry().getY());
-//        System.out.println(maze.getExit().getX()+" "+maze.getExit().getY());
-//        BFS solve=new BFS();
-//        ArrayList A= new ArrayList(solve.solve(maze));
-//        System.out.println(A.get(0));
-//    }
-//}
+/*import java.io.File;
+  import java.io.IOException;
+  import java.*;
+  import java.util.ArrayList;
+
+  public class Main {
+      public static void main(String args[]) throws IOException {
+          File maze1 = new File("C:\\Users\\Mitch\\Documents\\Computer Science\\Artifical Intelligence\\Programs\\Project1\\test.txt");
+          Maze maze=new Maze(maze1);
+          System.out.println(maze.getHeight());
+          System.out.println(maze.getWidth());
+          maze.printMaze();
+          System.out.println(maze.isWall(19,8));
+          System.out.println(maze.isValidLocation(0,0));
+          System.out.println(maze.getEntry().getX() +" "+maze.getEntry().getY());
+          System.out.println(maze.getExit().getX()+" "+maze.getExit().getY());
+          BFS solve=new BFS();
+          ArrayList A= new ArrayList(solve.solve(maze));
+          System.out.println(A.get(0));
+      }
+  }*/
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -27,22 +27,27 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]){
+        String filename = "open maze.txt";
+        try{
+            ArrayList<String> fileData = getFileData(filename);
+            Maze maze = getNewMaze(fileData);
 
-        ArrayList<String> fileData = getFileData("open maze.txt");
+            List<Node> path = SearchMethods.DFS(maze.getStart(),
+                    maze.getEnd());
 
-        Maze maze = getNewMaze(fileData);
+            for (Node c : path)
+            {
+                maze.setValue(c.getX(), c.getY(), 'X');
+            }
 
-        List<Node> path = SearchMethods.DFS(maze.getStart(),
-                maze.getEnd());
 
-        for (Node c : path)
-        {
-            maze.setValue(c.getX(), c.getY(), 'X');
+            print(maze);
+        }catch(IOException ioe){
+            System.out.println("Could not read file with name: " + filename);
+            System.exit(1);
         }
 
-
-        print(maze);
     }
 
     public static Maze getNewMaze(ArrayList<String> data)

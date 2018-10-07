@@ -1,111 +1,111 @@
-//
-//import java.util.List;
-//import java.io.File;
-//import java.io.IOException;
-//import java.util.Arrays;
-//import java.util.Scanner;
-//public class Maze {
-//    private int currentRow;
-//    private int currentCol;
-//    char [][] maze;
-//    int length;
-//    int height;
-//    private static final char pacman='P';
-//    private static final char goal='*';
-//    private static final char wall='%';
-//    private static final char marked='.';
-//    private static final char unknown=' ';
-//    private Coordinate start;
-//    private Coordinate end;
-//    boolean [][] visited;
-//
-//    public Maze(File maze) throws IOException {
-//        GenerateMaze(maze);
-//    }
-//    public void GenerateMaze(File fileName) throws IOException{
-////        System.out.println("What file would you like to send in?");
-////        String fileName = new Scanner(System.in).next();
-////        File file=new File(fileName);
-//        Scanner scan = new Scanner(fileName);
-//        int count=0;
-//        String row=scan.nextLine();
-//        maze=new char[row.length()][];
-//        maze[count] = row.toCharArray();
-//        count++;
-//        visited = new boolean[maze.length][maze[0].length];
-//        while(scan.hasNext()) {
-//            row = scan.nextLine();
-//            maze[count] = row.toCharArray();
-//            count++;
-//            height=count;
-//        }
-//        }
-//    public void printMaze() {
-//        for (int i = 0; i < height; i++) {
-//            for (int j = 0; j < maze[i].length; j++) {
-//                if (i == currentRow && j == currentCol) {
-//                    maze[i][j] = marked;
-//                    System.out.print(pacman + " ");
-//
-//                } else
-//                if (maze[i][j]==pacman)
-//                    start=new Coordinate(i,j);
-//                else if (maze[i][j]==goal)
-//                    end=new Coordinate(i,j);
-//                    System.out.print(maze[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-//    }
-//
-//    public int getHeight() {
-//        return height;
-//    }
-//
-//    public int getWidth() {
-//        return maze[0].length;
-//    }
-//
-//    public Coordinate getEntry() {
-//        return start;
-//    }
-//
-//    public Coordinate getExit() {
-//        return end;
-//    }
-//
-//    public boolean isExit(int x, int y) {
-//        return x == end.getX() && y == end.getY();
-//    }
-//
-//    public boolean isStart(int x, int y) {
-//        return x == start.getX() && y == start.getY();
-//    }
-//
-//    public boolean visited(int row, int col) {
-//        return visited[row][col];
-//    }
-//    public boolean isExplored(int row, int col) {
-//        return visited[row][col];
-//    }
-//    public void setVisited(int row, int col,boolean val) {
-//        visited[row][col]=val;
-//    }
-//
-//    public boolean isWall(int row, int col) {
-//        return maze[row][col] == wall;
-//    }
-//    public boolean isValidLocation(int row, int col) {
-//        if (row < 1 || row >= getHeight() || col < 1 || col >= getWidth()) {
-//            return false;
-//        }
-//        return true;
-//    }
-//    public void printcord(List<Coordinate> L,int i){
-//        System.out.println(L.get(i).getX()+","+L.get(i).getY());
-//    }
-//
-//}
+/*
+  import java.util.List;
+  import java.io.File;
+  import java.io.IOException;
+  import java.util.Arrays;
+  import java.util.Scanner;
+  public class Maze {
+      private int currentRow;
+      private int currentCol;
+      char [][] maze;
+      int length;
+      int height;
+      private static final char pacman='P';
+      private static final char goal='*';
+      private static final char wall='%';
+      private static final char marked='.';
+      private static final char unknown=' ';
+      private Coordinate start;
+      private Coordinate end;
+      boolean [][] visited;
+
+      public Maze(File maze) throws IOException {
+          GenerateMaze(maze);
+      }
+      public void GenerateMaze(File fileName) throws IOException{
+            System.out.println("What file would you like to send in?");
+            String fileName = new Scanner(System.in).next();
+            File file=new File(fileName);
+          Scanner scan = new Scanner(fileName);
+          int count=0;
+          String row=scan.nextLine();
+          maze=new char[row.length()][];
+          maze[count] = row.toCharArray();
+          count++;
+          visited = new boolean[maze.length][maze[0].length];
+          while(scan.hasNext()) {
+              row = scan.nextLine();
+              maze[count] = row.toCharArray();
+              count++;
+              height=count;
+          }
+          }
+      public void printMaze() {
+          for (int i = 0; i < height; i++) {
+              for (int j = 0; j < maze[i].length; j++) {
+                  if (i == currentRow && j == currentCol) {
+                      maze[i][j] = marked;
+                      System.out.print(pacman + " ");
+
+                  } else
+                  if (maze[i][j]==pacman)
+                      start=new Coordinate(i,j);
+                  else if (maze[i][j]==goal)
+                      end=new Coordinate(i,j);
+                      System.out.print(maze[i][j] + " ");
+              }
+              System.out.println();
+          }
+      }
+
+      public int getHeight() {
+          return height;
+      }
+
+      public int getWidth() {
+          return maze[0].length;
+      }
+
+      public Coordinate getEntry() {
+          return start;
+      }
+
+      public Coordinate getExit() {
+          return end;
+      }
+
+      public boolean isExit(int x, int y) {
+          return x == end.getX() && y == end.getY();
+      }
+
+      public boolean isStart(int x, int y) {
+          return x == start.getX() && y == start.getY();
+      }
+
+      public boolean visited(int row, int col) {
+          return visited[row][col];
+      }
+      public boolean isExplored(int row, int col) {
+          return visited[row][col];
+      }
+      public void setVisited(int row, int col,boolean val) {
+          visited[row][col]=val;
+      }
+
+      public boolean isWall(int row, int col) {
+          return maze[row][col] == wall;
+      }
+      public boolean isValidLocation(int row, int col) {
+          if (row < 1 || row >= getHeight() || col < 1 || col >= getWidth()) {
+              return false;
+          }
+          return true;
+      }
+      public void printcord(List<Coordinate> L,int i){
+          System.out.println(L.get(i).getX()+","+L.get(i).getY());
+      }
+
+}*/
 public class Maze
 {
     private int width;
