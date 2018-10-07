@@ -49,4 +49,47 @@ public class SearchMethods
 
         return path;
     }
+
+    //depth first search
+    public static List<Node> DFS(Node start, Node end)
+    {
+        //stack of next nodes to follow
+        Stack<Node> next = new Stack<>();
+        //hash for fast searching of past nodes
+        HashSet<Node> closedSet = new HashSet<>();
+        //current node
+        Node currentNode;
+
+        next.push(start);
+
+        //while there are more to expand
+        while (!next.isEmpty())
+        {
+            //get the next deepest node
+            currentNode = next.pop();
+
+            //set node to visited
+            closedSet.add(currentNode);
+
+            if(currentNode == end)
+                return backtrackPath(currentNode);
+
+            //for each neighbor
+            for(Node neighbor : currentNode.getNeighbors())
+            {
+
+                //if the neighbor has not been visited and is not a wall
+                if(!closedSet.contains(neighbor) && currentNode.getWeight() == neighbor.getWeight())
+                {
+                    //push to be visited next
+                    next.push(neighbor);
+                    //set current as parent
+                    neighbor.setParent(currentNode);
+                }
+            }
+        }
+
+        //if start is null return empty list
+        return Collections.emptyList();
+    }
 }

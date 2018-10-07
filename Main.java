@@ -29,11 +29,11 @@ import java.util.Scanner;
 public class Main {
     public static void main(String args[]) throws IOException {
 
-        ArrayList<String> fileData = getFileData("test.txt");
+        ArrayList<String> fileData = getFileData("open maze.txt");
 
         Maze maze = getNewMaze(fileData);
 
-        List<Node> path = SearchMethods.BFS(maze.getStart(),
+        List<Node> path = SearchMethods.DFS(maze.getStart(),
                 maze.getEnd());
 
         for (Node c : path)
