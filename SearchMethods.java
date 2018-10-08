@@ -253,11 +253,12 @@ public class SearchMethods
             if(!foundWay){
 
             }else{
-                
+
             }
         }
+        return null;//change for final
     }
     public static List<Node> aStarSearch(Node start,Node end){
-
+        return null;//change for final
     }
 }

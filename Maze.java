@@ -153,6 +153,13 @@ public class Maze
             for (int y = 0; y < height; y++)
             {
                 data[x][y] = new Node(x, y);
+
+            }
+        }
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
                 setNeighbors(data[x][y]);//able to combine
             }
         }
