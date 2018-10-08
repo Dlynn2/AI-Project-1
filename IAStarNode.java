@@ -1,13 +1,14 @@
 import java.util.List;
+
 public interface IAStarNode
 {
     int getG();
-    void setG(int g);
+    void setG(int gValue);
     int getH();
-    void setH(int h);
+    void setH(int hValue);
     int getF();
     IAStarNode getParent();
-    void setParent(IAStarNode Parent);
+    void setParent(IAStarNode parent);
     List<IAStarNode> getNeigbors();
-    //void AddNeighbor(IAStarNode neigbor);
+    void addNeighbor(IAStarNode neighbor);
 }
