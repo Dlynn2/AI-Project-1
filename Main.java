@@ -27,12 +27,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static Maze currentMaze;
     public static void main(String args[]){
-        String filename = "large maze.txt";
+        String filename = "open maze.txt";
         try{
             ArrayList<String> fileData = getFileData(filename);
-            currentMaze = getNewMaze(fileData);
+            Maze currentMaze = getNewMaze(fileData);
             for(String k :fileData){
                 System.out.println(k);
             }
