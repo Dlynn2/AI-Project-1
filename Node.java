@@ -21,10 +21,6 @@ public class Node
         return neighbors;
     }
 
-    public void useNeighbor(Node neighbor){
-
-    }
-
     public int getX() {
         return x;
     }

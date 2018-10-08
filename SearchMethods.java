@@ -99,33 +99,162 @@ public class SearchMethods
      * is one that is x and y one away from the final node
      */
     public static List<Node> greedySearch(Node start,Node end){
+        class MakeQueue{ //Only needed for this search so specific function needed
+            /**
+             * Builds priority Queue based on the current direction of x and y;
+             */
+            public PriorityQueue<Node> getMostPreferred(int xDirection,int yDirection,Node current){
+                PriorityQueue<Node> preferredBuilder = new PriorityQueue<>();
+                switch(xDirection){
+                    case 1:
+                        switch(yDirection){
+                            case 1:
+                                preferredBuilder.add(current.getNeighbors().get(2));
+                                preferredBuilder.add(current.getNeighbors().get(3));
+                                preferredBuilder.add(current.getNeighbors().get(1));
+                                preferredBuilder.add(current.getNeighbors().get(0));
+                                preferredBuilder.add(current.getNeighbors().get(4));
+                                preferredBuilder.add(current.getNeighbors().get(8));
+                                preferredBuilder.add(current.getNeighbors().get(5));
+                                preferredBuilder.add(current.getNeighbors().get(7));
+                                preferredBuilder.add(current.getNeighbors().get(6));
+                                break;
+                            case 0:
+                                preferredBuilder.add(current.getNeighbors().get(3));
+                                preferredBuilder.add(current.getNeighbors().get(4));
+                                preferredBuilder.add(current.getNeighbors().get(2));
+                                preferredBuilder.add(current.getNeighbors().get(5));
+                                preferredBuilder.add(current.getNeighbors().get(2));
+                                preferredBuilder.add(current.getNeighbors().get(6));
+                                preferredBuilder.add(current.getNeighbors().get(1));
+                                preferredBuilder.add(current.getNeighbors().get(0));
+                                preferredBuilder.add(current.getNeighbors().get(7));
+                                break;
+                            case -1:
+                                preferredBuilder.add(current.getNeighbors().get(4));
+                                preferredBuilder.add(current.getNeighbors().get(5));
+                                preferredBuilder.add(current.getNeighbors().get(3));
+                                preferredBuilder.add(current.getNeighbors().get(6));
+                                preferredBuilder.add(current.getNeighbors().get(2));
+                                preferredBuilder.add(current.getNeighbors().get(7));
+                                preferredBuilder.add(current.getNeighbors().get(1));
+                                preferredBuilder.add(current.getNeighbors().get(8));
+                                preferredBuilder.add(current.getNeighbors().get(0));
+                                break;
+                        }
+                        break;
+                    case 0:
+                        switch(yDirection){
+                            case 1:
+                                preferredBuilder.add(current.getNeighbors().get(1));
+                                preferredBuilder.add(current.getNeighbors().get(2));
+                                preferredBuilder.add(current.getNeighbors().get(0));
+                                preferredBuilder.add(current.getNeighbors().get(3));
+                                preferredBuilder.add(current.getNeighbors().get(8));
+                                preferredBuilder.add(current.getNeighbors().get(4));
+                                preferredBuilder.add(current.getNeighbors().get(7));
+                                preferredBuilder.add(current.getNeighbors().get(5));
+                                preferredBuilder.add(current.getNeighbors().get(6));
+                            case -1:
+                                preferredBuilder.add(current.getNeighbors().get(5));
+                                preferredBuilder.add(current.getNeighbors().get(6));
+                                preferredBuilder.add(current.getNeighbors().get(4));
+                                preferredBuilder.add(current.getNeighbors().get(7));
+                                preferredBuilder.add(current.getNeighbors().get(3));
+                                preferredBuilder.add(current.getNeighbors().get(8));
+                                preferredBuilder.add(current.getNeighbors().get(2));
+                                preferredBuilder.add(current.getNeighbors().get(0));
+                                preferredBuilder.add(current.getNeighbors().get(1));
+                                break;
+                        }
+                        break;
+                    case -1:
+                        switch(yDirection){
+                            case 1:
+                                preferredBuilder.add(current.getNeighbors().get(0));
+                                preferredBuilder.add(current.getNeighbors().get(1));
+                                preferredBuilder.add(current.getNeighbors().get(8));
+                                preferredBuilder.add(current.getNeighbors().get(2));
+                                preferredBuilder.add(current.getNeighbors().get(7));
+                                preferredBuilder.add(current.getNeighbors().get(3));
+                                preferredBuilder.add(current.getNeighbors().get(6));
+                                preferredBuilder.add(current.getNeighbors().get(4));
+                                preferredBuilder.add(current.getNeighbors().get(5));
+                            case 0:
+                                preferredBuilder.add(current.getNeighbors().get(8));
+                                preferredBuilder.add(current.getNeighbors().get(0));
+                                preferredBuilder.add(current.getNeighbors().get(7));
+                                preferredBuilder.add(current.getNeighbors().get(1));
+                                preferredBuilder.add(current.getNeighbors().get(6));
+                                preferredBuilder.add(current.getNeighbors().get(2));
+                                preferredBuilder.add(current.getNeighbors().get(5));
+                                preferredBuilder.add(current.getNeighbors().get(3));
+                                preferredBuilder.add(current.getNeighbors().get(4));
+                                break;
+                            case -1:
+                                preferredBuilder.add(current.getNeighbors().get(7));
+                                preferredBuilder.add(current.getNeighbors().get(8));
+                                preferredBuilder.add(current.getNeighbors().get(6));
+                                preferredBuilder.add(current.getNeighbors().get(0));
+                                preferredBuilder.add(current.getNeighbors().get(5));
+                                preferredBuilder.add(current.getNeighbors().get(1));
+                                preferredBuilder.add(current.getNeighbors().get(4));
+                                preferredBuilder.add(current.getNeighbors().get(2));
+                                preferredBuilder.add(current.getNeighbors().get(3));
+                                break;
+                        }
+                        break;
+                }
+                return preferredBuilder;
+            }
+        }
+        //Actual logic
         HashSet<Node> vangaurd = new HashSet<Node>();
         PriorityQueue<Node> preferred = new PriorityQueue<>();
+        MakeQueue makePriorityQueue = new MakeQueue();
         Node currentNode = start;
+
         int finalX = end.getX();
         int finalY = end.getY();
-        int currentDirection[] = new int[2]; //x,y
+        int currentDirectionX;
+        int currentDirectionY;
         while(currentNode != end){
             int currentX = start.getX();
             int currentY = start.getY();
             int offsetX = finalX - currentX;
             int offsetY = finalY - currentY;
             if(offsetX < 0){
-                currentDirection[0] = -1;
+                  currentDirectionX = -1;
             }else if(offsetX == 0){
-                currentDirection[0] = 0;
+                  currentDirectionX = 0;
             }else{
-                currentDirection[0] = 1;
+                  currentDirectionX = 1;
             }
             if(offsetY < 0) {
-                currentDirection[0] = -1;
+                currentDirectionY = -1;
             }
             else if(offsetY == 0){
-                currentDirection [1] = 0;
+                currentDirectionY = 0;
             }else{
-                currentDirection[1] = 1;
+                currentDirectionY = 1;
             }
-            Node preferredNode = currentNode.getNeighbors().get(2);
+            preferred = makePriorityQueue.getMostPreferred(currentDirectionX,currentDirectionY,currentNode);
+            Node preferredNode = preferred.poll();
+            boolean foundWay = false;
+            while(preferredNode != null){
+                if(preferredNode.getValue() != (int)'%'){
+                    currentNode = preferredNode;
+                    foundWay = true;
+                    break;
+                }else{
+                    preferredNode = preferred.poll();
+                }
+            }
+            if(!foundWay){
+
+            }else{
+                
+            }
         }
     }
     public static List<Node> aStarSearch(Node start,Node end){
