@@ -37,7 +37,7 @@ public class Main {
             }
             List<Node> path = SearchMethods.greedySearch(currentMaze.getStart(),
                     currentMaze.getEnd());
-
+            currentMaze.resetVisited();
              for (Node c : path)
             {
                 currentMaze.setValue(c.getX(), c.getY(), '.');

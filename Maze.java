@@ -211,7 +211,13 @@ public class Maze
             node.addNeighbor(data[x-1][y]);
         }
     }
-
+    public void resetVisited(){
+        for(int x =0;x<data.length;x++){
+            for(int y = 0;y<data[0].length;y++){
+                data[x][y].setVisited(false);
+            }
+        }
+    }
     private boolean isWithinBounds(int x, int y)
     {
         if(x < 0 || x >= width)
