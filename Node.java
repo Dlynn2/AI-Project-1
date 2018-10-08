@@ -6,7 +6,7 @@ public class Node
 
     private int x;
     private int y;
-    private int weight;
+    private int value;
     private Node parent;
     private List<Node> neighbors;
 
@@ -19,6 +19,10 @@ public class Node
 
     public List<Node> getNeighbors() {
         return neighbors;
+    }
+
+    public void useNeighbor(Node neighbor){
+
     }
 
     public int getX() {
@@ -43,11 +47,11 @@ public class Node
         neighbors.add(neighbor);
     }
 
-    public int getWeight() {
-        return weight;
+    public int getValue() {
+        return value;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public void setValue(int weight) {
+        this.value = weight;
     }
 }

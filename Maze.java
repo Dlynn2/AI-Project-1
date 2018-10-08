@@ -153,14 +153,7 @@ public class Maze
             for (int y = 0; y < height; y++)
             {
                 data[x][y] = new Node(x, y);
-            }
-        }
-
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                setNeighbors(data[x][y]);
+                setNeighbors(data[x][y]);//able to combine
             }
         }
     }
@@ -204,7 +197,6 @@ public class Maze
         if(isWithinBounds(x, y))
             data[x][y].setWeight(value);
     }
-
     public int getValueAt(int x, int y)
     {
         if(isWithinBounds(x, y))

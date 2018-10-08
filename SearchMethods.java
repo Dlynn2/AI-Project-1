@@ -24,7 +24,7 @@ public class SearchMethods
             for(Node neighbor : currentNode.getNeighbors())
             {
                 System.out.println("in");
-                if(closedSet.contains(neighbor) == false && currentNode.getWeight() == neighbor.getWeight())
+                if(closedSet.contains(neighbor) == false && currentNode.getValue() == neighbor.getValue())
                 {
                     openSet.add(neighbor);
                     neighbor.setParent(currentNode);
@@ -79,7 +79,7 @@ public class SearchMethods
             {
 
                 //if the neighbor has not been visited and is not a wall
-                if(!closedSet.contains(neighbor) && currentNode.getWeight() == neighbor.getWeight())
+                if(!closedSet.contains(neighbor) && currentNode.getValue() == neighbor.getValue())
                 {
                     //push to be visited next
                     next.push(neighbor);
@@ -91,5 +91,14 @@ public class SearchMethods
 
         //if start is null return empty list
         return Collections.emptyList();
+    }
+    public static List<Node> greedySearch(Node start,Node end){
+        HashSet<Node> vangaurd = new HashSet<Node>();
+        vangaurd.add(start);
+        while()
+
+    }
+    public static List<Node> aStarSearch(Node start,Node end){
+
     }
 }
