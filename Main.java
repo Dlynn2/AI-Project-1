@@ -27,24 +27,25 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    public static Maze currentMaze;
     public static void main(String args[]){
-        String filename = "open maze.txt";
+        String filename = "large maze.txt";
         try{
             ArrayList<String> fileData = getFileData(filename);
-            Maze maze = getNewMaze(fileData);
+            currentMaze = getNewMaze(fileData);
             for(String k :fileData){
                 System.out.println(k);
             }
-            List<Node> path = SearchMethods.greedySearch(maze.getStart(),
-                    maze.getEnd());
+            List<Node> path = SearchMethods.greedySearch(currentMaze.getStart(),
+                    currentMaze.getEnd());
 
              for (Node c : path)
             {
-                maze.setValue(c.getX(), c.getY(), 'X');
+                currentMaze.setValue(c.getX(), c.getY(), 'X');
             }
 
 
-            print(maze);
+            print(currentMaze);
         }catch(IOException ioe){
             System.out.println("Could not read file with name: " + filename);
             System.exit(1);

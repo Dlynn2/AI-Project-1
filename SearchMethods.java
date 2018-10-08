@@ -1,3 +1,5 @@
+import sun.awt.image.ImageWatched;
+
 import java.util.*;
 
 public class SearchMethods
@@ -207,16 +209,13 @@ public class SearchMethods
         Queue<Node> preferred = new LinkedList<>();
         MakeQueue makePriorityQueue = new MakeQueue();
         Node currentNode = start;
-
         int finalX = end.getX();
         int finalY = end.getY();
         int currentDirectionX;
         int currentDirectionY;
-        int counter = 0;
-        boolean shitflag = false;
-        while(currentNode != end && !shitflag){
-            int currentX = start.getX();
-            int currentY = start.getY();
+        while(currentNode != end){
+            int currentX = currentNode.getX();
+            int currentY = currentNode.getY();
             int offsetX = finalX - currentX;
             int offsetY = finalY - currentY;
             if(offsetX < 0){
@@ -236,7 +235,6 @@ public class SearchMethods
             }
             preferred = makePriorityQueue.getMostPreferred(currentDirectionX,currentDirectionY,currentNode);
             Node preferredNode = preferred.poll();
-
             while(preferredNode != null){
                 if(preferredNode.getValue() == (int)' '){
                     currentNode.setValue('X');
@@ -246,10 +244,16 @@ public class SearchMethods
                 }else{
                     preferredNode = preferred.poll();
                     if(preferred.size()==0){
-                        shitflag = true;
+                        currentNode = currentNode.getParent();
                     }
                 }
             }
+            List<Node> path = backtrackPath(currentNode);
+            for (Node c : path)
+            {
+                Main.currentMaze.setValue(c.getX(), c.getY(), 'X');
+            }
+            Main.print(Main.currentMaze);
         }
         return backtrackPath(currentNode);//change for final
     }

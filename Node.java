@@ -8,13 +8,13 @@ public class Node
     private int y;
     private int value;
     private Node parent;
-    private List<Node> neighbors;
+    private ArrayList<Node> neighbors;
 
     public Node(int x, int y) {
         this.x = x;
         this.y = y;
         this.parent = null;
-        neighbors = new ArrayList<>(8);
+        neighbors = new ArrayList<Node>(8);
         int totalPossibleNeighbors = 8;
         for(int i = 0;i<totalPossibleNeighbors;i++){
             neighbors.add(null);
