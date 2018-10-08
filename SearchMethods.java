@@ -92,11 +92,41 @@ public class SearchMethods
         //if start is null return empty list
         return Collections.emptyList();
     }
+    /**
+     * An implementation of a greedy search algorithm where the algorithm
+     * picks the "Most weighted" direction where the best move is one that
+     * iterates the x and y one closer to the final node, and the worst move
+     * is one that is x and y one away from the final node
+     */
     public static List<Node> greedySearch(Node start,Node end){
         HashSet<Node> vangaurd = new HashSet<Node>();
-        vangaurd.add(start);
-        while()
-
+        PriorityQueue<Node> preferred = new PriorityQueue<>();
+        Node currentNode = start;
+        int finalX = end.getX();
+        int finalY = end.getY();
+        int currentDirection[] = new int[2]; //x,y
+        while(currentNode != end){
+            int currentX = start.getX();
+            int currentY = start.getY();
+            int offsetX = finalX - currentX;
+            int offsetY = finalY - currentY;
+            if(offsetX < 0){
+                currentDirection[0] = -1;
+            }else if(offsetX == 0){
+                currentDirection[0] = 0;
+            }else{
+                currentDirection[0] = 1;
+            }
+            if(offsetY < 0) {
+                currentDirection[0] = -1;
+            }
+            else if(offsetY == 0){
+                currentDirection [1] = 0;
+            }else{
+                currentDirection[1] = 1;
+            }
+            Node preferredNode = currentNode.getNeighbors().get(2);
+        }
     }
     public static List<Node> aStarSearch(Node start,Node end){
 

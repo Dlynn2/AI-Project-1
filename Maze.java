@@ -163,14 +163,16 @@ public class Maze
         int x = node.getX();
         int y = node.getY();
 
-        if(isWithinBounds(x - 1, y))
-            node.addNeighbor(data[x - 1][y]);
-        if(isWithinBounds(x + 1, y))
-            node.addNeighbor(data[x + 1][y]);
-        if(isWithinBounds(x, y - 1))
-            node.addNeighbor(data[x][y - 1]);
-        if(isWithinBounds(x, y + 1))
-            node.addNeighbor(data[x][y + 1]);
+        //inProgress - assuming that neighbors can be corners
+        //adding in order: top-left -> top-right -> bottom-right -> bottom-left
+        if(isWithinBounds(x-1, y+1)) node.addNeighbor(data[x-1][y+1]);
+        if(isWithinBounds(x, y+1)) node.addNeighbor(data[x][y+1]);
+        if(isWithinBounds(x+1, y+1)) node.addNeighbor(data[x+1][y+1]);
+        if(isWithinBounds(x+1, y)) node.addNeighbor(data[x+1][y]);
+        if(isWithinBounds(x+1, y-1)) node.addNeighbor(data[x+1][y-1]);
+        if(isWithinBounds(x, y-1)) node.addNeighbor(data[x][y-1]);
+        if(isWithinBounds(x-1, y-1)) node.addNeighbor(data[x-1][y-1]);
+        if(isWithinBounds(x-1, y)) node.addNeighbor(data[x-1][y]);
     }
 
     private boolean isWithinBounds(int x, int y)
@@ -195,12 +197,12 @@ public class Maze
     public void setValue(int x, int y, int value)
     {
         if(isWithinBounds(x, y))
-            data[x][y].setWeight(value);
+            data[x][y].setValue(value);
     }
     public int getValueAt(int x, int y)
     {
         if(isWithinBounds(x, y))
-            return data[x][y].getWeight();
+            return data[x][y].getValue();
         else
             return Integer.MIN_VALUE;
     }
