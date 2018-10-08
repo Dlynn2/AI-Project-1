@@ -107,7 +107,7 @@ public class SearchMethods
              */
             public Queue<Node> getMostPreferred(int xDirection,int yDirection,Node current){
                 Queue<Node> preferredBuilder = new LinkedList<>();
-                switch(xDirection){
+                switch(xDirection){//Going through all the options and associating weight to neighbor nodes based on that
                     case 1:
                         switch(yDirection){
                             case 1:
@@ -204,56 +204,43 @@ public class SearchMethods
                 return preferredBuilder;
             }
         }
-        //Actual logic
-        HashSet<Node> vangaurd = new HashSet<Node>();
-        Queue<Node> preferred = new LinkedList<>();
-        MakeQueue makePriorityQueue = new MakeQueue();
+        Queue<Node> preferred; //list of preferred nodes
+        MakeQueue makePriorityQueue = new MakeQueue();//priority Queue class for making priority queues
         Node currentNode = start;
         int finalX = end.getX();
         int finalY = end.getY();
-        int currentDirectionX;
-        int currentDirectionY;
-        while(currentNode != end){
+        while(currentNode != end){//When we are not at the end
             int currentX = currentNode.getX();
             int currentY = currentNode.getY();
+            //Getting the direction we need to go to associate greed
             int offsetX = finalX - currentX;
             int offsetY = finalY - currentY;
             if(offsetX < 0){
-                  currentDirectionX = -1;
-            }else if(offsetX == 0){
-                  currentDirectionX = 0;
-            }else{
-                  currentDirectionX = 1;
+                offsetX = -1;
+            }else if(offsetX > 0){
+                offsetX = 1;
             }
-            if(offsetY < 0) {
-                currentDirectionY = -1;
+            if(offsetY < 0){
+                offsetY = -1;
+            }else if(offsetY > 0){
+                offsetY = 1;
             }
-            else if(offsetY == 0){
-                currentDirectionY = 0;
-            }else{
-                currentDirectionY = 1;
-            }
-            preferred = makePriorityQueue.getMostPreferred(currentDirectionX,currentDirectionY,currentNode);
+            preferred = makePriorityQueue.getMostPreferred(offsetX,offsetY,currentNode);
             Node preferredNode = preferred.poll();
             while(preferredNode != null){
                 if(preferredNode.getValue() == (int)' '){
-                    currentNode.setValue('X');
+                    preferredNode.setValue('X');
                     preferredNode.setParent(currentNode);
                     currentNode = preferredNode;
                     break;
-                }else{
+                }else {
                     preferredNode = preferred.poll();
-                    if(preferred.size()==0){
+                    if(preferred.size() == 0){
                         currentNode = currentNode.getParent();
+                        break;
                     }
                 }
             }
-            List<Node> path = backtrackPath(currentNode);
-            for (Node c : path)
-            {
-                Main.currentMaze.setValue(c.getX(), c.getY(), 'X');
-            }
-            Main.print(Main.currentMaze);
         }
         return backtrackPath(currentNode);//change for final
     }
