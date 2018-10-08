@@ -103,8 +103,8 @@ public class SearchMethods
             /**
              * Builds priority Queue based on the current direction of x and y;
              */
-            public PriorityQueue<Node> getMostPreferred(int xDirection,int yDirection,Node current){
-                PriorityQueue<Node> preferredBuilder = new PriorityQueue<>();
+            public Queue<Node> getMostPreferred(int xDirection,int yDirection,Node current){
+                Queue<Node> preferredBuilder = new LinkedList<>();
                 switch(xDirection){
                     case 1:
                         switch(yDirection){
@@ -210,7 +210,7 @@ public class SearchMethods
         }
         //Actual logic
         HashSet<Node> vangaurd = new HashSet<Node>();
-        PriorityQueue<Node> preferred = new PriorityQueue<>();
+        Queue<Node> preferred = new LinkedList<>();
         MakeQueue makePriorityQueue = new MakeQueue();
         Node currentNode = start;
 
@@ -243,6 +243,7 @@ public class SearchMethods
             boolean foundWay = false;
             while(preferredNode != null){
                 if(preferredNode.getValue() != (int)'%'){
+                    currentNode.setParent(preferredNode);
                     currentNode = preferredNode;
                     foundWay = true;
                     break;
@@ -251,7 +252,7 @@ public class SearchMethods
                 }
             }
             if(!foundWay){
-
+                return backtrackPath(currentNode);
             }else{
 
             }

@@ -33,7 +33,7 @@ public class Main {
             ArrayList<String> fileData = getFileData(filename);
             Maze maze = getNewMaze(fileData);
 
-            List<Node> path = SearchMethods.DFS(maze.getStart(),
+            List<Node> path = SearchMethods.greedySearch(maze.getStart(),
                     maze.getEnd());
 
             for (Node c : path)
