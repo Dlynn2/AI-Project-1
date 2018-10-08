@@ -14,7 +14,11 @@ public class Node
         this.x = x;
         this.y = y;
         this.parent = null;
-        neighbors = new ArrayList<>();
+        neighbors = new ArrayList<>(8);
+        int totalPossibleNeighbors = 8;
+        for(int i = 0;i<totalPossibleNeighbors;i++){
+            neighbors.add(null);
+        }
     }
 
     public List<Node> getNeighbors() {
@@ -41,6 +45,10 @@ public class Node
     public void addNeighbor(Node neighbor)
     {
         neighbors.add(neighbor);
+    }
+
+    public void setNeighbor(int index,Node value){
+        neighbors.set(index,value);
     }
 
     public int getValue() {

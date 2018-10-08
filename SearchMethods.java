@@ -109,99 +109,93 @@ public class SearchMethods
                     case 1:
                         switch(yDirection){
                             case 1:
-                                preferredBuilder.add(current.getNeighbors().get(2));
+                                preferredBuilder.add(current.getNeighbors().get(4));
+                                preferredBuilder.add(current.getNeighbors().get(5));
                                 preferredBuilder.add(current.getNeighbors().get(3));
+                                preferredBuilder.add(current.getNeighbors().get(6));
+                                preferredBuilder.add(current.getNeighbors().get(2));
+                                preferredBuilder.add(current.getNeighbors().get(7));
                                 preferredBuilder.add(current.getNeighbors().get(1));
                                 preferredBuilder.add(current.getNeighbors().get(0));
-                                preferredBuilder.add(current.getNeighbors().get(4));
-                                preferredBuilder.add(current.getNeighbors().get(8));
-                                preferredBuilder.add(current.getNeighbors().get(5));
-                                preferredBuilder.add(current.getNeighbors().get(7));
-                                preferredBuilder.add(current.getNeighbors().get(6));
-                                break;
+                                return preferredBuilder;
                             case 0:
                                 preferredBuilder.add(current.getNeighbors().get(3));
                                 preferredBuilder.add(current.getNeighbors().get(4));
                                 preferredBuilder.add(current.getNeighbors().get(2));
                                 preferredBuilder.add(current.getNeighbors().get(5));
-                                preferredBuilder.add(current.getNeighbors().get(2));
-                                preferredBuilder.add(current.getNeighbors().get(6));
                                 preferredBuilder.add(current.getNeighbors().get(1));
+                                preferredBuilder.add(current.getNeighbors().get(6));
                                 preferredBuilder.add(current.getNeighbors().get(0));
                                 preferredBuilder.add(current.getNeighbors().get(7));
-                                break;
+                                return preferredBuilder;
                             case -1:
-                                preferredBuilder.add(current.getNeighbors().get(4));
-                                preferredBuilder.add(current.getNeighbors().get(5));
-                                preferredBuilder.add(current.getNeighbors().get(3));
-                                preferredBuilder.add(current.getNeighbors().get(6));
                                 preferredBuilder.add(current.getNeighbors().get(2));
-                                preferredBuilder.add(current.getNeighbors().get(7));
+                                preferredBuilder.add(current.getNeighbors().get(3));
                                 preferredBuilder.add(current.getNeighbors().get(1));
-                                preferredBuilder.add(current.getNeighbors().get(8));
+                                preferredBuilder.add(current.getNeighbors().get(4));
                                 preferredBuilder.add(current.getNeighbors().get(0));
-                                break;
+                                preferredBuilder.add(current.getNeighbors().get(5));
+                                preferredBuilder.add(current.getNeighbors().get(7));
+                                preferredBuilder.add(current.getNeighbors().get(6));
+                                return preferredBuilder;
                         }
                         break;
                     case 0:
                         switch(yDirection){
                             case 1:
-                                preferredBuilder.add(current.getNeighbors().get(1));
-                                preferredBuilder.add(current.getNeighbors().get(2));
-                                preferredBuilder.add(current.getNeighbors().get(0));
-                                preferredBuilder.add(current.getNeighbors().get(3));
-                                preferredBuilder.add(current.getNeighbors().get(8));
-                                preferredBuilder.add(current.getNeighbors().get(4));
-                                preferredBuilder.add(current.getNeighbors().get(7));
                                 preferredBuilder.add(current.getNeighbors().get(5));
                                 preferredBuilder.add(current.getNeighbors().get(6));
+                                preferredBuilder.add(current.getNeighbors().get(4));
+                                preferredBuilder.add(current.getNeighbors().get(7));
+                                preferredBuilder.add(current.getNeighbors().get(3));
+                                preferredBuilder.add(current.getNeighbors().get(0));
+                                preferredBuilder.add(current.getNeighbors().get(2));
+                                preferredBuilder.add(current.getNeighbors().get(1));
+                                return preferredBuilder;
                             case -1:
-                                preferredBuilder.add(current.getNeighbors().get(5));
-                                preferredBuilder.add(current.getNeighbors().get(6));
-                                preferredBuilder.add(current.getNeighbors().get(4));
-                                preferredBuilder.add(current.getNeighbors().get(7));
-                                preferredBuilder.add(current.getNeighbors().get(3));
-                                preferredBuilder.add(current.getNeighbors().get(8));
+                                preferredBuilder.add(current.getNeighbors().get(1));
                                 preferredBuilder.add(current.getNeighbors().get(2));
                                 preferredBuilder.add(current.getNeighbors().get(0));
-                                preferredBuilder.add(current.getNeighbors().get(1));
-                                break;
+                                preferredBuilder.add(current.getNeighbors().get(3));
+                                preferredBuilder.add(current.getNeighbors().get(7));
+                                preferredBuilder.add(current.getNeighbors().get(4));
+                                preferredBuilder.add(current.getNeighbors().get(6));
+                                preferredBuilder.add(current.getNeighbors().get(5));
+                                return preferredBuilder;
                         }
                         break;
                     case -1:
                         switch(yDirection){
                             case 1:
-                                preferredBuilder.add(current.getNeighbors().get(0));
-                                preferredBuilder.add(current.getNeighbors().get(1));
-                                preferredBuilder.add(current.getNeighbors().get(8));
-                                preferredBuilder.add(current.getNeighbors().get(2));
-                                preferredBuilder.add(current.getNeighbors().get(7));
-                                preferredBuilder.add(current.getNeighbors().get(3));
                                 preferredBuilder.add(current.getNeighbors().get(6));
-                                preferredBuilder.add(current.getNeighbors().get(4));
+                                preferredBuilder.add(current.getNeighbors().get(7));
                                 preferredBuilder.add(current.getNeighbors().get(5));
+                                preferredBuilder.add(current.getNeighbors().get(0));
+                                preferredBuilder.add(current.getNeighbors().get(4));
+                                preferredBuilder.add(current.getNeighbors().get(1));
+                                preferredBuilder.add(current.getNeighbors().get(3));
+                                preferredBuilder.add(current.getNeighbors().get(2));
+                                return preferredBuilder;
                             case 0:
-                                preferredBuilder.add(current.getNeighbors().get(8));
-                                preferredBuilder.add(current.getNeighbors().get(0));
                                 preferredBuilder.add(current.getNeighbors().get(7));
-                                preferredBuilder.add(current.getNeighbors().get(1));
+                                preferredBuilder.add(current.getNeighbors().get(0));
                                 preferredBuilder.add(current.getNeighbors().get(6));
-                                preferredBuilder.add(current.getNeighbors().get(2));
+                                preferredBuilder.add(current.getNeighbors().get(1));
                                 preferredBuilder.add(current.getNeighbors().get(5));
-                                preferredBuilder.add(current.getNeighbors().get(3));
+                                preferredBuilder.add(current.getNeighbors().get(2));
                                 preferredBuilder.add(current.getNeighbors().get(4));
-                                break;
+                                preferredBuilder.add(current.getNeighbors().get(3));
+                                return preferredBuilder;
                             case -1:
-                                preferredBuilder.add(current.getNeighbors().get(7));
-                                preferredBuilder.add(current.getNeighbors().get(8));
-                                preferredBuilder.add(current.getNeighbors().get(6));
                                 preferredBuilder.add(current.getNeighbors().get(0));
-                                preferredBuilder.add(current.getNeighbors().get(5));
                                 preferredBuilder.add(current.getNeighbors().get(1));
-                                preferredBuilder.add(current.getNeighbors().get(4));
+                                preferredBuilder.add(current.getNeighbors().get(7));
                                 preferredBuilder.add(current.getNeighbors().get(2));
+                                preferredBuilder.add(current.getNeighbors().get(6));
                                 preferredBuilder.add(current.getNeighbors().get(3));
-                                break;
+                                preferredBuilder.add(current.getNeighbors().get(5));
+                                preferredBuilder.add(current.getNeighbors().get(4));
+                                return preferredBuilder;
                         }
                         break;
                 }
@@ -218,7 +212,9 @@ public class SearchMethods
         int finalY = end.getY();
         int currentDirectionX;
         int currentDirectionY;
-        while(currentNode != end){
+        int counter = 0;
+        boolean shitflag = false;
+        while(currentNode != end && !shitflag){
             int currentX = start.getX();
             int currentY = start.getY();
             int offsetX = finalX - currentX;
@@ -240,24 +236,22 @@ public class SearchMethods
             }
             preferred = makePriorityQueue.getMostPreferred(currentDirectionX,currentDirectionY,currentNode);
             Node preferredNode = preferred.poll();
-            boolean foundWay = false;
+
             while(preferredNode != null){
-                if(preferredNode.getValue() != (int)'%'){
-                    currentNode.setParent(preferredNode);
+                if(preferredNode.getValue() == (int)' '){
+                    currentNode.setValue('X');
+                    preferredNode.setParent(currentNode);
                     currentNode = preferredNode;
-                    foundWay = true;
                     break;
                 }else{
                     preferredNode = preferred.poll();
+                    if(preferred.size()==0){
+                        shitflag = true;
+                    }
                 }
             }
-            if(!foundWay){
-                return backtrackPath(currentNode);
-            }else{
-
-            }
         }
-        return null;//change for final
+        return backtrackPath(currentNode);//change for final
     }
     public static List<Node> aStarSearch(Node start,Node end){
         return null;//change for final

@@ -32,11 +32,13 @@ public class Main {
         try{
             ArrayList<String> fileData = getFileData(filename);
             Maze maze = getNewMaze(fileData);
-
+            for(String k :fileData){
+                System.out.println(k);
+            }
             List<Node> path = SearchMethods.greedySearch(maze.getStart(),
                     maze.getEnd());
 
-            for (Node c : path)
+             for (Node c : path)
             {
                 maze.setValue(c.getX(), c.getY(), 'X');
             }
