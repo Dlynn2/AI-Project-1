@@ -172,14 +172,44 @@ public class Maze
 
         //inProgress - assuming that neighbors can be corners
         //adding in order: top-left -> top-right -> bottom-right -> bottom-left
-        if(isWithinBounds(x-1, y-1)) node.setNeighbor(0,data[x-1][y-1]);
-        if(isWithinBounds(x, y-1)) node.setNeighbor(1,data[x][y-1]);
-        if(isWithinBounds(x+1, y-1)) node.setNeighbor(2,data[x+1][y-1]);
-        if(isWithinBounds(x+1, y)) node.setNeighbor(3,data[x+1][y]);
-        if(isWithinBounds(x+1, y+1)) node.setNeighbor(4,data[x+1][y+1]);
-        if(isWithinBounds(x, y+1)) node.setNeighbor(5,data[x][y+1]);
-        if(isWithinBounds(x-1, y+1)) node.setNeighbor(6,data[x-1][y+1]);
-        if(isWithinBounds(x-1, y)) node.setNeighbor(7,data[x-1][y]);
+        if(isWithinBounds(x-1, y-1)){
+            node.addNeighbor(data[x-1][y-1]);
+        }else{
+            node.addNeighbor(null);
+        }
+        if(isWithinBounds(x, y-1)){
+            node.addNeighbor(data[x][y-1]);
+        }else{
+            node.addNeighbor(null);
+        }
+        if(isWithinBounds(x+1, y-1)){
+            node.addNeighbor(data[x+1][y-1]);
+        }else{
+            node.addNeighbor(null);
+        }
+        if(isWithinBounds(x+1, y)){
+            node.addNeighbor(data[x+1][y]);
+        }else{
+            node.addNeighbor(null);
+        }
+        if(isWithinBounds(x+1, y+1)){
+            node.addNeighbor(data[x+1][y+1]);
+        }else{
+            node.addNeighbor(null);
+        }
+        if(isWithinBounds(x, y+1)){
+            node.addNeighbor(data[x][y+1]);
+        }else{
+            node.addNeighbor(null);
+        }
+        if(isWithinBounds(x-1, y+1)){
+            node.addNeighbor(data[x-1][y+1]);
+        }else{
+            node.addNeighbor(null);
+        }
+        if(isWithinBounds(x-1, y)){
+            node.addNeighbor(data[x-1][y]);
+        }
     }
 
     private boolean isWithinBounds(int x, int y)

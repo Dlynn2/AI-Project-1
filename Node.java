@@ -14,11 +14,7 @@ public class Node
         this.x = x;
         this.y = y;
         this.parent = null;
-        neighbors = new ArrayList<Node>(8);
-        int totalPossibleNeighbors = 8;
-        for(int i = 0;i<totalPossibleNeighbors;i++){
-            neighbors.add(null);
-        }
+        neighbors = new ArrayList<Node>();
     }
 
     public List<Node> getNeighbors() {
