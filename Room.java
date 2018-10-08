@@ -1,37 +1,58 @@
-using System.Collections;
-        using System.Collections.Generic;
+import java.util.*;
 
-public class Room : IAStarNode
-        {
-private int _G;
-public int G { get { return _G; } set { _G = value; } }
+public class Room implements IAStarNode {
+    private int G;
+    public int getG(){
+        return G;
+    }
+    public void setG(int val){
+        G = val;
+    }
 
-private int _H;
-public int H { get { return _H; } set { _H = value; } }
+    private int h;
+    public int getH(){
+        return h;
+    }
+    public void setH(int val){
+        h = val;
+    }
 
-public int F { get { return H + G; } }
+    public int getF(){
+        return h + G;
+    }
 
-private IAStarNode _Parent;
-public IAStarNode Parent { get { return _Parent; } set { _Parent = value; } }
+    private IAStarNode parent;
+    public IAStarNode getParent(){
+        return parent;
+    }
+    public void setParent(IAStarNode val){
+        parent = val;
+    }
 
-private List<IAStarNode> _Neigbors;
-public IList<IAStarNode> Neigbors { get { return _Neigbors.AsReadOnly(); } }
+    private List<IAStarNode> neigbors;
+    public List<IAStarNode> getNeigbors(){
+        return neigbors;
+    }
 
-public readonly int X;
-public readonly int Y;
+    public int X;
+    public int Y;
 
 
-public Room(int x, int y) :this(x, y, 0) {}
-public Room(int x, int y, int g)
-        {
+    public Room(int x, int y){
+        X = x;
+        Y = y;
+        G = 0;
+    }
+    public Room(int x, int y, int g)
+    {
         X = x;
         Y = y;
         G = g;
-        _Neigbors = new List<IAStarNode>();
-        }
+        neigbors = new LinkedList<IAStarNode>();
+    }
 
-public void AddNeighbor(IAStarNode neigbor)
-        {
-        _Neigbors.Add(neigbor);
-        }
-        }
+    public void AddNeighbor(IAStarNode neigbor)
+    {
+        neigbors.add(neigbor);
+    }
+}

@@ -1,47 +1,45 @@
-using System;
-        using System.Collections;
-        using System.Collections.Generic;
+import java.util.*;
 
-public static class AStar
+public class AStar
 {
     public static List<IAStarNode> GetPath(IAStarNode start, IAStarNode end, IAStarHueristic hueristic)
     {
         HashSet<IAStarNode> closedSet = new HashSet<IAStarNode>();
-        List<IAStarNode> openSet = new List<IAStarNode>();
-        openSet.Add(start);
-        start.G = 0;
+        List<IAStarNode> openSet = new LinkedList<IAStarNode>();
+        openSet.add(start);
+        start.setG(0);
 
-        while (openSet.Count != 0)
+        while (openSet.size() != 0)
         {
-            IAStarNode currentNode = openSet[0];
+            IAStarNode currentNode = openSet.get(0);
 
-            foreach (IAStarNode node in openSet)
+            for(IAStarNode node : openSet)
             {
-                node.H = hueristic.GetHeuristic(node, end);
+                node.setH(hueristic.GetHeuristic(node, end));
 
-                if (node.F < currentNode.F || node.F == currentNode.F && node.H < currentNode.H)
+                if (node.getF() < currentNode.getF() || node.getF() == currentNode.getF() && node.getH() < currentNode.getH())
                     currentNode = node;
             }
 
             if (currentNode == end)
                 return ConstructPath(currentNode, start);
 
-            openSet.Remove(currentNode);
-            closedSet.Add(currentNode);
+            openSet.remove(currentNode);
+            closedSet.add(currentNode);
 
-            foreach (IAStarNode neighbor in currentNode.Neigbors)
+            for (IAStarNode neighbor : currentNode.getNeigbors())
             {
-                if (closedSet.Contains(neighbor))
+                if (closedSet.contains(neighbor))
                     continue;
 
-                int newHueristic = currentNode.G + hueristic.GetHeuristic(currentNode, neighbor);
+                int newHueristic = currentNode.getG() + hueristic.GetHeuristic(currentNode, neighbor);
 
-                if (openSet.Contains(neighbor) == false)
-                    openSet.Add(neighbor);
-                else if (newHueristic >= neighbor.H)
+                if (!openSet.contains(neighbor))
+                    openSet.add(neighbor);
+                else if (newHueristic >= neighbor.getH())
                     continue;
 
-                neighbor.Parent = currentNode;
+                neighbor.setParent(currentNode);
             }
         }
 
@@ -50,16 +48,19 @@ public static class AStar
 
     private static List<IAStarNode> ConstructPath(IAStarNode start, IAStarNode end)
     {
-        List<IAStarNode> result = new List<IAStarNode>();
+        Stack<IAStarNode> resultTemp = new Stack<IAStarNode>();
+        List<IAStarNode> result = new LinkedList<IAStarNode>();
         IAStarNode currentNode = start;
 
         while (currentNode != end)
         {
-            result.Add(currentNode);
-            currentNode = currentNode.Parent;
+            resultTemp.push(currentNode);
+            currentNode = currentNode.getParent();
         }
 
-        result.Reverse();
+        while (!resultTemp.isEmpty()) {
+            result.add(resultTemp.pop());
+        }
 
         return result;
     }

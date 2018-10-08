@@ -1,22 +1,21 @@
-using System;
-        using System.Collections;
-        using System.Collections.Generic;
+import java.util.*;
+
 public class Grid
 {
-    private class Hueristic : IAStarHueristic
+    private class Hueristic implements IAStarHueristic
     {
         public int GetHeuristic(IAStarNode start, IAStarNode end)
         {
             Room s = start as Room;
             Room e = end as Room;
 
-            return Math.Abs(s.X - e.X) + Math.Abs(s.Y - e.Y);
+            return Math.abs(s.X - e.X) + Math.abs(s.Y - e.Y);
         }
     }
 
-    private System.Random _Random;
-    public readonly int Width;
-    public readonly int Height;
+    private Random random;
+    public int Width;
+    public int Height;
 
     private Room[,] _Rooms;
 
@@ -24,7 +23,7 @@ public class Grid
     {
         Width = width;
         Height = height;
-        _Random = new System.Random(seed);
+        random = new Random(seed);
 
         InitializeRooms();
     }
@@ -38,7 +37,7 @@ public class Grid
     {
         IAStarNode startNode;
         IAStarNode endNode;
-        SetStartEndNodes(out startNode, out endNode);
+        SetStartEndNodes(startNode, endNode);
 
         List<IAStarNode> map = AStar.GetPath(startNode, endNode, new Hueristic());
         Branching(map);
@@ -48,19 +47,19 @@ public class Grid
 
     private void InitializeRooms()
     {
-        _Rooms = new Room[Width, Height];
+        List<Room> rooms = new LinkedList<Room>();
 
         //Setup rooms
         for (int y = 0; y < Height; y++)
         {
             for (int x = 0; x < Width; x++)
             {
-                _Rooms[x, y] = new Room(x, y, _Random.Next());
+                rooms.add(new Room(x, y, random.nextInt()));
             }
         }
 
         //Initialize neigbors
-        foreach (Room room in _Rooms)
+        for (Room room : rooms)
         {
             int x = room.X;
             int y = room.Y;
@@ -79,9 +78,9 @@ public class Grid
         }
     }
 
-    private void SetStartEndNodes(out IAStarNode startNode, out IAStarNode endNode)
+    private List SetStartEndNodes(IAStarNode startNode, IAStarNode endNode)
     {
-        int randomFactor = _Random.Next(0, 100);
+        int randomFactor = random.nextInt(100);
 
         if (randomFactor < 50)
         {
@@ -97,26 +96,26 @@ public class Grid
 
     private void Branching(List<IAStarNode> path)
     {
-        for (int i = 0; i < path.Count; i++)
+        for (int i = 0; i < path.size(); i++)
         {
-            foreach (IAStarNode neigbor in path[i].Neigbors)
+            for(IAStarNode neigbor : path.get(i).getNeigbors())
             {
-                if (path.Contains(neigbor))
+                if (path.contains(neigbor))
                     continue;
 
                 //TODO: Implement branching with better accuracy
-                int randomFactor = _Random.Next(0, Width + Height);
+                int randomFactor = random.nextInt(Width + Height);
 
                 if(randomFactor < (Width + Height)/3)
                 {
-                    path.Add(neigbor);
+                    path.add(neigbor);
                     break;
                 }
             }
         }
     }
 
-    private bool IsWithinBounds(int x, int y)
+    private boolean IsWithinBounds(int x, int y)
     {
         if (x < 0 || x >= Width)
             return false;
