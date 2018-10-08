@@ -7,6 +7,7 @@ public class Node
     private int x;
     private int y;
     private int value;
+    private boolean visited;
     private Node parent;
     private ArrayList<Node> neighbors;
 
@@ -49,6 +50,14 @@ public class Node
 
     public int getValue() {
         return value;
+    }
+
+    public void setVisited(boolean b){
+        visited = b;
+    }
+
+    public boolean isVisited(){
+        return visited;
     }
 
     public void setValue(int weight) {

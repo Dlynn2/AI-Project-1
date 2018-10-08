@@ -228,8 +228,8 @@ public class SearchMethods
             preferred = makePriorityQueue.getMostPreferred(offsetX,offsetY,currentNode);
             Node preferredNode = preferred.poll();
             while(preferredNode != null){
-                if(preferredNode.getValue() == (int)' '){
-                    preferredNode.setValue('X');
+                if(preferredNode.getValue() == (int)' ' && !preferredNode.isVisited()){
+                    preferredNode.setVisited(true);
                     preferredNode.setParent(currentNode);
                     currentNode = preferredNode;
                     break;

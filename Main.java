@@ -35,12 +35,12 @@ public class Main {
             for(String k :fileData){
                 System.out.println(k);
             }
-            List<Node> path = SearchMethods.BFS(currentMaze.getStart(),
+            List<Node> path = SearchMethods.greedySearch(currentMaze.getStart(),
                     currentMaze.getEnd());
 
              for (Node c : path)
             {
-                currentMaze.setValue(c.getX(), c.getY(), 'X');
+                currentMaze.setValue(c.getX(), c.getY(), '.');
             }
 
 
