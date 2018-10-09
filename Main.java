@@ -15,30 +15,18 @@ public class Main {
             for(String k :fileData){
                 System.out.println(k);
             }
-            List<IAStarNode> path = SearchMethods.BFS(maze.getStart(),maze.getEnd());
-            List<Node> path = SearchMethods.greedySearch(currentMaze.getStart(),
+            List<IAStarNode> path = SearchMethods.greedySearch(currentMaze.getStart(),
                     currentMaze.getEnd());
             currentMaze.resetVisited();
-             for (Node c : path)
-            {
-                currentMaze.setValue(c.getX(), c.getY(), '.');
-            }
-
-            path = SearchMethods.AStar(maze.getStart(),
-                maze.getEnd(), Node.getHueristic());
-
             for (IAStarNode c : path) {
                 Node node = (Node) c;
-                maze.setValue(node.getX(), node.getY(), 'X');
+                currentMaze.setValue(node.getX(), node.getY(), 'X');
             }
             print(currentMaze);
         }catch(IOException ioe){
             System.out.println("Could not read file with name: " + filename);
             System.exit(1);
         }
-
-
-        print(maze);
     }
 
     public static Maze getNewMaze(ArrayList<String> data)
@@ -80,7 +68,7 @@ public class Main {
         {
             for (int y = 0; y < maze.getHeight(); y++)
             {
-                System.out.print((char)maze.getValueAt(x, y) + " ");
+                System.out.print((char)maze.getValueAt(x, y));
             }
             System.out.println();
         }

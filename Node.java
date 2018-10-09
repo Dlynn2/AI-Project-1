@@ -22,15 +22,14 @@ public class Node implements IAStarNode
     private int x;
     private int y;
 
-    private IAStarNode parent;
-    private List<IAStarNode> neighbors;
+    private IAStarNode IAparent;
     private int gValue;
     private int hValue;
     private List<IAStarNode> _neighbors;
     private int value;
     private boolean visited;
-    private Node parent;
-    private ArrayList<Node> neighbors;
+    private IAStarNode parent;
+    private ArrayList<IAStarNode> neighbors;
 
     public Node(int x, int y) {
         this.x = x;
@@ -85,7 +84,8 @@ public class Node implements IAStarNode
 
     @Override
     public IAStarNode getParent() {
-        return this.parent;
+        return this.IAparent;
+    }
     public void setNeighbor(int index,Node value){
         neighbors.set(index,value);
     }
@@ -109,11 +109,10 @@ public class Node implements IAStarNode
     @Override
     public void setParent(IAStarNode parent)
     {
-        this.parent = parent;
+        this.IAparent = parent;
     }
 
-    @Override
-    public List<IAStarNode> getNeigbors() {
+    public List<IAStarNode> getNeighbors() {
         return _neighbors;
     }
 

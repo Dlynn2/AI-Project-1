@@ -23,7 +23,7 @@ public class SearchMethods
                 return backtrackPath(currentNode);
 
             closedSet.add(currentNode);
-            for(IAStarNode neighbor : currentNode.getNeigbors())
+            for(IAStarNode neighbor : currentNode.getNeighbors())
             {
                 if(closedSet.contains(neighbor) == false && currentNode.getG() == neighbor.getG())
                 {
@@ -78,7 +78,7 @@ public class SearchMethods
             openSet.remove(currentNode);
             closedSet.add(currentNode);
 
-            for (IAStarNode neighbor : currentNode.getNeigbors())
+            for (IAStarNode neighbor : currentNode.getNeighbors())
             {
                 if (closedSet.contains(neighbor))
                     continue;
@@ -99,10 +99,11 @@ public class SearchMethods
                 neighbor.setParent(currentNode);
             }
         }
-
-        return null;
         //if start is null return empty list
         return Collections.emptyList();
+
+
+
     }
     /**
      * An implementation of a greedy search algorithm where the algorithm
@@ -110,13 +111,13 @@ public class SearchMethods
      * iterates the x and y one closer to the final node, and the worst move
      * is one that is x and y one away from the final node
      */
-    public static List<Node> greedySearch(Node start,Node end){
+    public static List<IAStarNode> greedySearch(Node start,Node end){
         class MakeQueue{ //Only needed for this search so specific function needed
             /**
              * Builds priority Queue based on the current direction of x and y;
              */
-            public Queue<Node> getMostPreferred(int xDirection,int yDirection,Node current){
-                Queue<Node> preferredBuilder = new LinkedList<>();
+            public Queue<IAStarNode> getMostPreferred(int xDirection,int yDirection,Node current){
+                Queue<IAStarNode> preferredBuilder = new LinkedList<>();
                 switch(xDirection){//Going through all the options and associating weight to neighbor nodes based on that
                     case 1:
                         switch(yDirection){
@@ -214,9 +215,9 @@ public class SearchMethods
                 return preferredBuilder;
             }
         }
-        Queue<Node> preferred; //list of preferred nodes
+        Queue<IAStarNode> preferred; //list of preferred nodes
         MakeQueue makePriorityQueue = new MakeQueue();//priority Queue class for making priority queues
-        Node currentNode = start;
+        IAStarNode currentNode = start;
         int finalX = end.getX();
         int finalY = end.getY();
         while(currentNode != end){//When we are not at the end
@@ -235,8 +236,8 @@ public class SearchMethods
             }else if(offsetY > 0){
                 offsetY = 1;
             }
-            preferred = makePriorityQueue.getMostPreferred(offsetX,offsetY,currentNode);
-            Node preferredNode = preferred.poll();
+            preferred = makePriorityQueue.getMostPreferred(offsetX,offsetY,(Node)currentNode);
+            Node preferredNode = (Node)preferred.poll();
             while(preferredNode != null){
                 if(preferredNode.getValue() == (int)' ' && !preferredNode.isVisited()){
                     preferredNode.setVisited(true);
@@ -244,9 +245,9 @@ public class SearchMethods
                     currentNode = preferredNode;
                     break;
                 }else {
-                    preferredNode = preferred.poll();
+                    preferredNode = (Node)preferred.poll();
                     if(preferred.size() == 0){
-                        currentNode = currentNode.getParent();
+                        currentNode = (Node)currentNode.getParent();
                         break;
                     }
                 }
