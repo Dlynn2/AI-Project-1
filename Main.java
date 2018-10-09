@@ -1,24 +1,3 @@
-/*import java.io.File;
-  import java.io.IOException;
-  import java.*;
-  import java.util.ArrayList;
-
-  public class Main {
-      public static void main(String args[]) throws IOException {
-          File maze1 = new File("C:\\Users\\Mitch\\Documents\\Computer Science\\Artifical Intelligence\\Programs\\Project1\\test.txt");
-          Maze maze=new Maze(maze1);
-          System.out.println(maze.getHeight());
-          System.out.println(maze.getWidth());
-          maze.printMaze();
-          System.out.println(maze.isWall(19,8));
-          System.out.println(maze.isValidLocation(0,0));
-          System.out.println(maze.getEntry().getX() +" "+maze.getEntry().getY());
-          System.out.println(maze.getExit().getX()+" "+maze.getExit().getY());
-          BFS solve=new BFS();
-          ArrayList A= new ArrayList(solve.solve(maze));
-          System.out.println(A.get(0));
-      }
-  }*/
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,10 +10,12 @@ public class Main {
         String filename = "open maze.txt";
         try{
             ArrayList<String> fileData = getFileData(filename);
+
             Maze currentMaze = getNewMaze(fileData);
             for(String k :fileData){
                 System.out.println(k);
             }
+            List<IAStarNode> path = SearchMethods.BFS(maze.getStart(),maze.getEnd());
             List<Node> path = SearchMethods.greedySearch(currentMaze.getStart(),
                     currentMaze.getEnd());
             currentMaze.resetVisited();
@@ -43,13 +24,21 @@ public class Main {
                 currentMaze.setValue(c.getX(), c.getY(), '.');
             }
 
+            path = SearchMethods.AStar(maze.getStart(),
+                maze.getEnd(), Node.getHueristic());
 
+            for (IAStarNode c : path) {
+                Node node = (Node) c;
+                maze.setValue(node.getX(), node.getY(), 'X');
+            }
             print(currentMaze);
         }catch(IOException ioe){
             System.out.println("Could not read file with name: " + filename);
             System.exit(1);
         }
 
+
+        print(maze);
     }
 
     public static Maze getNewMaze(ArrayList<String> data)
@@ -91,7 +80,7 @@ public class Main {
         {
             for (int y = 0; y < maze.getHeight(); y++)
             {
-                System.out.print((char)maze.getValueAt(x, y));
+                System.out.print((char)maze.getValueAt(x, y) + " ");
             }
             System.out.println();
         }

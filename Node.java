@@ -1,11 +1,32 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class Node
+public class Node implements IAStarNode
 {
+    private static class Hueristic implements IAStarHueristic
+    {
+        @Override
+        public int getHeuristic(IAStarNode start, IAStarNode end)
+        {
+            Node s = (Node) start;
+            Node e = (Node) end;
+
+            return Math.abs(s.x - e.x) + Math.abs(s.y - e.y);
+        }
+    }
+
+
+    private static Hueristic hueristic = new Hueristic();
 
     private int x;
     private int y;
+
+    private IAStarNode parent;
+    private List<IAStarNode> neighbors;
+    private int gValue;
+    private int hValue;
+    private List<IAStarNode> _neighbors;
     private int value;
     private boolean visited;
     private Node parent;
@@ -15,11 +36,13 @@ public class Node
         this.x = x;
         this.y = y;
         this.parent = null;
-        neighbors = new ArrayList<Node>();
+        neighbors = new ArrayList<>();
+        _neighbors = Collections.unmodifiableList(neighbors);
     }
 
-    public List<Node> getNeighbors() {
-        return neighbors;
+    public static Hueristic getHueristic()
+    {
+        return hueristic;
     }
 
     public int getX() {
@@ -30,20 +53,39 @@ public class Node
         return y;
     }
 
-    public Node getParent() {
-        return parent;
-    }
-
-    public void setParent(Node parent)
+    @Override
+    public int getG()
     {
-        this.parent = parent;
+        return this.gValue;
     }
 
-    public void addNeighbor(Node neighbor)
+    @Override
+    public void setG(int gValue)
     {
-        neighbors.add(neighbor);
+        this.gValue = gValue;
     }
 
+    @Override
+    public int getH()
+    {
+        return this.hValue;
+    }
+
+    @Override
+    public void setH(int hValue)
+    {
+        this.hValue = hValue;
+    }
+
+    @Override
+    public int getF()
+    {
+        return hValue + gValue;
+    }
+
+    @Override
+    public IAStarNode getParent() {
+        return this.parent;
     public void setNeighbor(int index,Node value){
         neighbors.set(index,value);
     }
@@ -63,4 +105,23 @@ public class Node
     public void setValue(int weight) {
         this.value = weight;
     }
+
+    @Override
+    public void setParent(IAStarNode parent)
+    {
+        this.parent = parent;
+    }
+
+    @Override
+    public List<IAStarNode> getNeigbors() {
+        return _neighbors;
+    }
+
+    @Override
+    public void addNeighbor(IAStarNode neighbor)
+    {
+        neighbors.add(neighbor);
+    }
+
+
 }

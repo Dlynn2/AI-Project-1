@@ -6,15 +6,15 @@ public class SearchMethods
 {
     private SearchMethods(){}
 
-    public static List<Node> BFS(Node start, Node end)
+    public static List<IAStarNode> BFS(Node start, Node end)
     {
-        HashSet<Node> closedSet = new HashSet<>();
-        Queue<Node> openSet = new LinkedList<>();
+        HashSet<IAStarNode> closedSet = new HashSet<>();
+        Queue<IAStarNode> openSet = new LinkedList<>();
         openSet.add(start);
 
         while (openSet.isEmpty() == false)
         {
-            Node currentNode = openSet.poll();
+            IAStarNode currentNode = openSet.poll();
 
             if (closedSet.contains(currentNode))
                 continue;
@@ -23,10 +23,9 @@ public class SearchMethods
                 return backtrackPath(currentNode);
 
             closedSet.add(currentNode);
-            for(Node neighbor : currentNode.getNeighbors())
+            for(IAStarNode neighbor : currentNode.getNeigbors())
             {
-                System.out.println("in");
-                if(closedSet.contains(neighbor) == false && currentNode.getValue() == neighbor.getValue())
+                if(closedSet.contains(neighbor) == false && currentNode.getG() == neighbor.getG())
                 {
                     openSet.add(neighbor);
                     neighbor.setParent(currentNode);
@@ -38,10 +37,10 @@ public class SearchMethods
         return Collections.emptyList();
     }
 
-    private static List<Node> backtrackPath(Node start) {
+    private static List<IAStarNode> backtrackPath(IAStarNode start) {
 
-        List<Node> path = new ArrayList<>();
-        Node current = start;
+        List<IAStarNode> path = new ArrayList<>();
+        IAStarNode current = start;
 
         while (current != null)
         {
@@ -52,45 +51,56 @@ public class SearchMethods
         return path;
     }
 
-    //depth first search
-    public static List<Node> DFS(Node start, Node end)
+
+    public static List<IAStarNode> AStar(IAStarNode start, IAStarNode end, IAStarHueristic hueristic)
     {
-        //stack of next nodes to follow
-        Stack<Node> next = new Stack<>();
-        //hash for fast searching of past nodes
-        HashSet<Node> closedSet = new HashSet<>();
-        //current node
-        Node currentNode;
+        HashSet<IAStarNode> closedSet = new HashSet<>();
+        List<IAStarNode> openSet = new ArrayList<>();
+        openSet.add(start);
+        //start.setG(0);
 
-        next.push(start);
-
-        //while there are more to expand
-        while (!next.isEmpty())
+        while (openSet.size() != 0)
         {
-            //get the next deepest node
-            currentNode = next.pop();
+            IAStarNode currentNode = openSet.get(0);
 
-            //set node to visited
-            closedSet.add(currentNode);
+            for (IAStarNode node : openSet)
+            {
+                int h = hueristic.getHeuristic(node, end);
+                node.setH(h);
 
-            if(currentNode == end)
+                if (node.getF() < currentNode.getF() || node.getF() == currentNode.getF() && node.getH() < currentNode.getH())
+                    currentNode = node;
+            }
+
+            if (currentNode == end)
                 return backtrackPath(currentNode);
 
-            //for each neighbor
-            for(Node neighbor : currentNode.getNeighbors())
-            {
+            openSet.remove(currentNode);
+            closedSet.add(currentNode);
 
-                //if the neighbor has not been visited and is not a wall
-                if(!closedSet.contains(neighbor) && currentNode.getValue() == neighbor.getValue())
+            for (IAStarNode neighbor : currentNode.getNeigbors())
+            {
+                if (closedSet.contains(neighbor))
+                    continue;
+
+                //Checking for walls
+                if(currentNode.getG() != neighbor.getG())
                 {
-                    //push to be visited next
-                    next.push(neighbor);
-                    //set current as parent
-                    neighbor.setParent(currentNode);
+                    closedSet.add(neighbor);
+                    continue;
                 }
+                int newGValue = currentNode.getG() + neighbor.getG();
+
+                if (openSet.contains(neighbor) == false)
+                    openSet.add(neighbor);
+                else if (newGValue >= neighbor.getG())
+                    continue;
+
+                neighbor.setParent(currentNode);
             }
         }
 
+        return null;
         //if start is null return empty list
         return Collections.emptyList();
     }
@@ -247,4 +257,6 @@ public class SearchMethods
     public static List<Node> aStarSearch(Node start,Node end){
         return null;//change for final
     }
+
+
 }
