@@ -61,17 +61,54 @@ public class Maze
     {
         int x = node.getX();
         int y = node.getY();
-
-        if(isWithinBounds(x - 1, y))
-            node.addNeighbor(data[x - 1][y]);
-        if(isWithinBounds(x + 1, y))
-            node.addNeighbor(data[x + 1][y]);
-        if(isWithinBounds(x, y - 1))
-            node.addNeighbor(data[x][y - 1]);
-        if(isWithinBounds(x, y + 1))
-            node.addNeighbor(data[x][y + 1]);
+        //inProgress - assuming that neighbors can be corners
+        //adding in order: top-left -> top-right -> bottom-right -> bottom-left
+        if(isWithinBounds(x-1, y-1)){
+            node.addNeighbor(data[x-1][y-1]);
+        }else{
+            node.addNeighbor(null);
+        }
+        if(isWithinBounds(x, y-1)){
+            node.addNeighbor(data[x][y-1]);
+        }else{
+            node.addNeighbor(null);
+        }
+        if(isWithinBounds(x+1, y-1)){
+            node.addNeighbor(data[x+1][y-1]);
+        }else{
+            node.addNeighbor(null);
+        }
+        if(isWithinBounds(x+1, y)){
+            node.addNeighbor(data[x+1][y]);
+        }else{
+            node.addNeighbor(null);
+        }
+        if(isWithinBounds(x+1, y+1)){
+            node.addNeighbor(data[x+1][y+1]);
+        }else{
+            node.addNeighbor(null);
+        }
+        if(isWithinBounds(x, y+1)){
+            node.addNeighbor(data[x][y+1]);
+        }else{
+            node.addNeighbor(null);
+        }
+        if(isWithinBounds(x-1, y+1)){
+            node.addNeighbor(data[x-1][y+1]);
+        }else{
+            node.addNeighbor(null);
+        }
+        if(isWithinBounds(x-1, y)){
+            node.addNeighbor(data[x-1][y]);
+        }
     }
-
+    public void resetVisited(){
+        for(int x =0;x<data.length;x++){
+            for(int y = 0;y<data[0].length;y++){
+                data[x][y].setVisited(false);
+            }
+        }
+    }
     private boolean isWithinBounds(int x, int y)
     {
         if(x < 0 || x >= width)

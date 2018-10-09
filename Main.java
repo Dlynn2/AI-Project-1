@@ -6,21 +6,35 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]){
+        String filename = "open maze.txt";
+        try{
+            ArrayList<String> fileData = getFileData(filename);
 
-        ArrayList<String> fileData = getFileData("test.txt");
+            Maze currentMaze = getNewMaze(fileData);
+            for(String k :fileData){
+                System.out.println(k);
+            }
+            List<IAStarNode> path = SearchMethods.BFS(maze.getStart(),maze.getEnd());
+            List<Node> path = SearchMethods.greedySearch(currentMaze.getStart(),
+                    currentMaze.getEnd());
+            currentMaze.resetVisited();
+             for (Node c : path)
+            {
+                currentMaze.setValue(c.getX(), c.getY(), '.');
+            }
 
-        Maze maze = getNewMaze(fileData);
-
-        List<IAStarNode> path = SearchMethods.BFS(maze.getStart(),maze.getEnd());
-
-        path = SearchMethods.AStar(maze.getStart(),
+            path = SearchMethods.AStar(maze.getStart(),
                 maze.getEnd(), Node.getHueristic());
 
-        for (IAStarNode c : path)
-        {
-            Node node = (Node)c;
-            maze.setValue(node.getX(), node.getY(), 'X');
+            for (IAStarNode c : path) {
+                Node node = (Node) c;
+                maze.setValue(node.getX(), node.getY(), 'X');
+            }
+            print(currentMaze);
+        }catch(IOException ioe){
+            System.out.println("Could not read file with name: " + filename);
+            System.exit(1);
         }
 
 
