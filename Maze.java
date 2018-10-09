@@ -1,3 +1,6 @@
+/**
+ * Maze class which holds the array of Nodes that hold the data and their neighbors
+ */
 public class Maze
 {
     private int width;
@@ -35,7 +38,7 @@ public class Maze
         return height;
     }
 
-    private void inititializeData()
+    private void inititializeData()//Initialize a new maze with neighbors
     {
         data = new Node[width][];
 
@@ -61,7 +64,6 @@ public class Maze
     {
         int x = node.getX();
         int y = node.getY();
-        //inProgress - assuming that neighbors can be corners
         //adding in order: top-left -> top-right -> bottom-right -> bottom-left
         if(isWithinBounds(x-1, y-1)){
             node.addNeighbor(data[x-1][y-1]);
@@ -100,13 +102,6 @@ public class Maze
         }
         if(isWithinBounds(x-1, y)){
             node.addNeighbor(data[x-1][y]);
-        }
-    }
-    public void resetVisited(){
-        for(int x =0;x<data.length;x++){
-            for(int y = 0;y<data[0].length;y++){
-                data[x][y].setVisited(false);
-            }
         }
     }
     private boolean isWithinBounds(int x, int y)

@@ -1,47 +1,31 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class Node implements IAStarNode
+/**
+ * Node class is used to hold each x,y coordinate along with its neighbors.
+ */
+public class Node
 {
-    private static class Hueristic implements IAStarHueristic
-    {
-        @Override
-        public int getHeuristic(IAStarNode start, IAStarNode end)
-        {
-            Node s = (Node) start;
-            Node e = (Node) end;
-
-            return Math.abs(s.x - e.x) + Math.abs(s.y - e.y);
-        }
-    }
-
-
-    private static Hueristic hueristic = new Hueristic();
-
+    private static Heuristic heuristic = new Heuristic();
     private int x;
     private int y;
-
-    private IAStarNode IAparent;
+    private Node IAparent;
     private int gValue;
     private int hValue;
-    private List<IAStarNode> _neighbors;
-    private int value;
     private boolean visited;
-    private IAStarNode parent;
-    private ArrayList<IAStarNode> neighbors;
+    private Node parent;
+    private ArrayList<Node> neighbors;
 
     public Node(int x, int y) {
         this.x = x;
         this.y = y;
         this.parent = null;
         neighbors = new ArrayList<>();
-        _neighbors = Collections.unmodifiableList(neighbors);
     }
 
-    public static Hueristic getHueristic()
+    public static Heuristic getHeuristic()
     {
-        return hueristic;
+        return heuristic;
     }
 
     public int getX() {
@@ -77,12 +61,8 @@ public class Node implements IAStarNode
         return hValue + gValue;
     }
 
-    public IAStarNode getParent() {
+    public Node getParent() {
         return this.IAparent;
-    }
-
-    public int getValue() {
-        return value;
     }
 
     public void setVisited(boolean b){
@@ -93,20 +73,16 @@ public class Node implements IAStarNode
         return visited;
     }
 
-    public void setValue(int weight) {
-        this.value = weight;
-    }
-
-    public void setParent(IAStarNode parent)
+    public void setParent(Node parent)
     {
         this.IAparent = parent;
     }
 
-    public List<IAStarNode> getNeighbors() {
+    public List<Node> getNeighbors() {
         return neighbors;
     }
 
-    public void addNeighbor(IAStarNode neighbor)
+    public void addNeighbor(Node neighbor)
     {
         neighbors.add(neighbor);
     }
