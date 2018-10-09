@@ -20,8 +20,9 @@ public class Main {
             currentMaze.resetVisited();
             for (IAStarNode c : path) {
                 Node node = (Node) c;
-                currentMaze.setValue(node.getX(), node.getY(), 'X');
+                currentMaze.setValue(node.getX(), node.getY(), '.');
             }
+            System.out.println(path.size());
             print(currentMaze);
         }catch(IOException ioe){
             System.out.println("Could not read file with name: " + filename);
