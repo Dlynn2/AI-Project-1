@@ -15,7 +15,7 @@ public class Main {
             for(String k :fileData){
                 System.out.println(k);
             }
-            List<IAStarNode> path = SearchMethods.greedySearch(currentMaze.getStart(),
+            List<IAStarNode> path = SearchMethods.DFS(currentMaze.getStart(),
                     currentMaze.getEnd());
             currentMaze.resetVisited();
             for (IAStarNode c : path) {

@@ -25,7 +25,7 @@ public class SearchMethods
             closedSet.add(currentNode);
             for(IAStarNode neighbor : currentNode.getNeighbors())
             {
-                if(closedSet.contains(neighbor) == false && currentNode.getG() == neighbor.getG())
+                if(!closedSet.contains(neighbor) && currentNode.getG() == neighbor.getG())
                 {
                     openSet.add(neighbor);
                     neighbor.setParent(currentNode);
@@ -104,6 +104,47 @@ public class SearchMethods
 
 
 
+    }
+    public static List<IAStarNode> DFS(IAStarNode start, IAStarNode end)
+    {
+        //stack of next nodes to follow
+        Stack<IAStarNode> next = new Stack<>();
+        //hash for fast searching of past nodes
+        HashSet<IAStarNode> closedSet = new HashSet<>();
+        //current node
+        IAStarNode currentNode;
+
+        next.push(start);
+
+        //while there are more to expand
+        while (!next.isEmpty())
+        {
+            //get the next deepest node
+            currentNode = next.pop();
+
+            //set node to visited
+            closedSet.add(currentNode);
+
+            if(currentNode == end)
+                return backtrackPath(currentNode);
+
+            //for each neighbor
+            for(IAStarNode neighbor : currentNode.getNeighbors())
+            {
+
+                //if the neighbor has not been visited and is not a wall
+                if(!closedSet.contains(neighbor) && currentNode.getG() == neighbor.getG())
+                {
+                    //push to be visited next
+                    next.push(neighbor);
+                    //set current as parent
+                    neighbor.setParent(currentNode);
+                }
+            }
+        }
+
+        //if start is null return empty list
+        return Collections.emptyList();
     }
     /**
      * An implementation of a greedy search algorithm where the algorithm
