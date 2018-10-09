@@ -28,8 +28,6 @@ public class Main {
     /**
      * Constructs a new maze based on data passed from a textfile formatted like a maze, % is a wall, P is start, . is
      * the finish
-     * @param data
-     * @return
      */
     public static Maze getNewMaze(ArrayList<String> data)
     {
