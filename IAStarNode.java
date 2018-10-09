@@ -2,6 +2,9 @@ import java.util.List;
 
 public interface IAStarNode
 {
+    int getValue();
+    boolean isVisited();
+    void setVisited(boolean b);
     int getX();
     int getY();
     int getG();

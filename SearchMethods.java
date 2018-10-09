@@ -116,7 +116,7 @@ public class SearchMethods
             /**
              * Builds priority Queue based on the current direction of x and y;
              */
-            public Queue<IAStarNode> getMostPreferred(int xDirection,int yDirection,Node current){
+            public Queue<IAStarNode> getMostPreferred(int xDirection,int yDirection,IAStarNode current){
                 Queue<IAStarNode> preferredBuilder = new LinkedList<>();
                 switch(xDirection){//Going through all the options and associating weight to neighbor nodes based on that
                     case 1:
@@ -236,18 +236,22 @@ public class SearchMethods
             }else if(offsetY > 0){
                 offsetY = 1;
             }
-            preferred = makePriorityQueue.getMostPreferred(offsetX,offsetY,(Node)currentNode);
-            Node preferredNode = (Node)preferred.poll();
+            preferred = makePriorityQueue.getMostPreferred(offsetX,offsetY,currentNode);
+            IAStarNode preferredNode = preferred.poll();
             while(preferredNode != null){
-                if(preferredNode.getValue() == (int)' ' && !preferredNode.isVisited()){
+                if(preferredNode.getG() == (int)' ' && !preferredNode.isVisited()){
                     preferredNode.setVisited(true);
                     preferredNode.setParent(currentNode);
                     currentNode = preferredNode;
                     break;
                 }else {
-                    preferredNode = (Node)preferred.poll();
+                    preferredNode = preferred.poll();
                     if(preferred.size() == 0){
-                        currentNode = (Node)currentNode.getParent();
+                        IAStarNode temp = currentNode;
+                        currentNode = currentNode.getParent();
+                        if(currentNode == null){
+                            return backtrackPath(temp);
+                        }
                         break;
                     }
                 }

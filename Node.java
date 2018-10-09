@@ -52,42 +52,33 @@ public class Node implements IAStarNode
         return y;
     }
 
-    @Override
     public int getG()
     {
         return this.gValue;
     }
 
-    @Override
     public void setG(int gValue)
     {
         this.gValue = gValue;
     }
 
-    @Override
     public int getH()
     {
         return this.hValue;
     }
 
-    @Override
     public void setH(int hValue)
     {
         this.hValue = hValue;
     }
 
-    @Override
     public int getF()
     {
         return hValue + gValue;
     }
 
-    @Override
     public IAStarNode getParent() {
         return this.IAparent;
-    }
-    public void setNeighbor(int index,Node value){
-        neighbors.set(index,value);
     }
 
     public int getValue() {
@@ -106,17 +97,15 @@ public class Node implements IAStarNode
         this.value = weight;
     }
 
-    @Override
     public void setParent(IAStarNode parent)
     {
         this.IAparent = parent;
     }
 
     public List<IAStarNode> getNeighbors() {
-        return _neighbors;
+        return neighbors;
     }
 
-    @Override
     public void addNeighbor(IAStarNode neighbor)
     {
         neighbors.add(neighbor);
